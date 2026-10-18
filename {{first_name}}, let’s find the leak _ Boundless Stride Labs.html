@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>{{first_name}}, let’s find the leak | Boundless Stride Labs</title>
+<meta name="description" content="A free 20-minute review of {{company}}’s own data with Vik Doddi.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light only">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#06373C;
+  --teal-2:#0B4A50;
+  --brand-ink:#06373C;
+  --paper:#FFFFFF;
+  --surface:#F2F7F6;
+  --ink:#10211F;
+  --ink-soft:#4A6763;
+  --rule:#C9D3CF;
+  --amber:#9CC0BE;
+  --amber-ink:#0B4A50;
+  --on-teal:#F3F5F2;
+  --on-teal-soft:#B7CBC7;
+  --cell-empty:#E3E9E6;
+  --font:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  box-sizing:border-box;
+  color-scheme:light only;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top, 0px));scroll-behavior:smooth;}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper);}
+h1,h2,h3,p,ul,ol,figure{margin:0;}
+h1,h2,h3{text-wrap:balance;letter-spacing:-0.015em;}
+p{text-wrap:pretty;}
+a{color:inherit;}
+a:focus-visible,button:focus-visible{outline:3px solid #5FA3A0;outline-offset:3px;border-radius:2px;}
+img{max-width:100%;}
+.wrap{width:100%;max-width:72rem;margin:0 auto;padding:0 clamp(1.25rem,4vw,2.5rem);}
+.measure{max-width:38rem;}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:var(--paper);color:var(--brand-ink);border-bottom:1px solid var(--rule);}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:64px;}
+.brand{font-weight:600;font-size:1.02rem;text-decoration:none;letter-spacing:-0.01em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0.7rem 1.25rem;border-radius:4px;font-family:var(--font);font-weight:600;font-size:0.98rem;text-decoration:none;white-space:nowrap;border:0;cursor:pointer;}
+.btn-amber{background:var(--teal);color:#FFFFFF;}
+.btn-amber:hover{background:#0B4A50;}
+.btn-line{background:transparent;color:var(--brand-ink);box-shadow:inset 0 0 0 1.5px var(--brand-ink);}
+.btn-line:hover{background:var(--surface);}
+.top .btn{min-height:40px;padding:0.5rem 1rem;font-size:0.92rem;}
+
+/* hero */
+.hero{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--rule);padding:clamp(3rem,8vw,6rem) 0 clamp(3.5rem,8vw,6.5rem);}
+.hero .greet{font-size:1.05rem;color:var(--ink-soft);}
+.hero h1{margin-top:1rem;max-width:18ch;font-size:clamp(2.3rem,4.6vw + 0.6rem,4.2rem);line-height:1.04;font-weight:700;color:var(--brand-ink);}
+.hero .lede{margin-top:1.5rem;max-width:36rem;font-size:clamp(1.08rem,0.35vw + 1rem,1.22rem);line-height:1.6;color:var(--ink);}
+.hero .aside{margin-top:1.25rem;max-width:36rem;padding-left:1rem;border-left:2px solid #5FA3A0;color:var(--ink-soft);font-size:1rem;}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:0.75rem 1rem;margin-top:2rem;}
+
+/* sections */
+.sec{padding:clamp(3.5rem,7vw,5.5rem) 0;}
+.sec + .sec{border-top:1px solid var(--rule);}
+.sec h2{font-size:clamp(1.65rem,1.8vw + 1.1rem,2.4rem);line-height:1.12;font-weight:700;max-width:24ch;color:var(--brand-ink);}
+.sec .sub{margin-top:0.85rem;color:var(--ink-soft);max-width:38rem;}
+
+/* video placeholder */
+.video{margin-top:2rem;aspect-ratio:16/9;max-width:56rem;display:grid;place-items:center;background:var(--surface);border:1.5px dashed var(--rule);border-radius:6px;color:var(--ink-soft);font-weight:500;text-align:center;padding:1rem;}
+
+/* symptoms */
+.symptoms{margin-top:2rem;max-width:44rem;list-style:none;padding:0;border-top:1px solid var(--rule);}
+.symptoms li{padding:1rem 0;border-bottom:1px solid var(--rule);font-size:1.08rem;}
+.symptoms + p{margin-top:1.5rem;max-width:38rem;color:var(--ink-soft);}
+
+/* proof: the one bold moment */
+.proof{display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:center;margin-top:2.25rem;}
+@media (min-width:880px){.proof{grid-template-columns:1.05fr 0.95fr;gap:4rem;}}
+.week{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;max-width:30rem;}
+.hr{aspect-ratio:1;border-radius:2px;background:var(--amber);transition:background-color .5s ease, opacity .5s ease;}
+.week.done .hr:not(.keep){background:var(--cell-empty);}
+.hr.keep{background:var(--teal-2);}
+.week-legend{display:flex;flex-wrap:wrap;gap:0.5rem 1.5rem;margin-top:1rem;font-size:0.92rem;color:var(--ink-soft);}
+.key{display:inline-flex;align-items:center;gap:0.5rem;}
+.key i{width:12px;height:12px;border-radius:2px;display:inline-block;}
+.numbers{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+.numbers b{font-size:clamp(3.4rem,6vw + 1rem,5.6rem);line-height:1;font-weight:700;letter-spacing:-0.03em;}
+.numbers .to{font-size:clamp(1.4rem,1.5vw + 1rem,2rem);color:var(--ink-soft);font-weight:500;}
+.numbers b.after{color:var(--brand-ink);}
+.proof-copy p{margin-top:1rem;max-width:32rem;}
+.proof-copy .unit{margin-top:0.35rem;color:var(--ink-soft);font-size:1rem;}
+.others{margin-top:3rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}
+@media (min-width:760px){.others{grid-template-columns:1fr 1fr;gap:2.5rem;}}
+.others h3{font-size:1.15rem;line-height:1.3;font-weight:600;}
+.others p{margin-top:0.4rem;color:var(--ink-soft);}
+
+/* steps: a real sequence */
+.steps{margin-top:2.25rem;list-style:none;padding:0;display:grid;grid-template-columns:1fr;gap:1.75rem;counter-reset:step;}
+@media (min-width:860px){.steps{grid-template-columns:repeat(3,1fr);gap:2.5rem;}}
+.steps li{counter-increment:step;padding-top:1.1rem;border-top:3px solid var(--brand-ink);}
+.steps li::before{content:counter(step);display:block;font-size:2rem;font-weight:700;line-height:1;color:var(--brand-ink);margin-bottom:0.75rem;}
+.steps h3{font-size:1.2rem;line-height:1.3;font-weight:600;}
+.steps p{margin-top:0.45rem;color:var(--ink-soft);}
+.steps .note{margin-top:0.6rem;font-size:0.92rem;color:var(--amber-ink);font-weight:500;}
+
+/* fit + about */
+.split{display:grid;grid-template-columns:1fr;gap:3rem;}
+@media (min-width:880px){.split{grid-template-columns:1fr 1fr;gap:4rem;}}
+.fit{margin-top:1.25rem;padding:0;list-style:none;}
+.fit li{padding:0.55rem 0;border-bottom:1px solid var(--rule);}
+.fit li:first-child{border-top:1px solid var(--rule);}
+.about-head{display:flex;align-items:center;gap:1rem;}
+.photo{flex:none;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px dashed var(--rule);color:var(--ink-soft);font-size:0.7rem;text-align:center;line-height:1.2;padding:0.4rem;}
+.about p{margin-top:1rem;max-width:34rem;}
+.about .role{margin:0;color:var(--ink-soft);font-size:0.98rem;}
+.about-head h3{font-size:1.3rem;font-weight:600;line-height:1.2;}
+
+/* booking */
+.book{background:var(--surface);color:var(--ink);border-top:1px solid var(--rule);padding:clamp(3.5rem,7vw,5.5rem) 0;}
+.book-grid{display:grid;grid-template-columns:1fr;gap:2.5rem;align-items:start;}
+@media (min-width:920px){.book-grid{grid-template-columns:0.85fr 1.15fr;gap:4rem;}}
+.book h2{font-size:clamp(1.8rem,2vw + 1.1rem,2.6rem);line-height:1.1;font-weight:700;max-width:16ch;color:var(--brand-ink);}
+.book p{margin-top:1rem;color:var(--ink-soft);max-width:30rem;}
+.book .alt{margin-top:1.5rem;font-size:0.95rem;}
+.cal{min-height:560px;display:grid;place-items:center;background:var(--paper);border:1.5px dashed var(--rule);border-radius:6px;color:var(--ink-soft);font-weight:500;text-align:center;padding:1rem;}
+
+footer{padding:2rem 0 2.5rem;font-size:0.92rem;color:var(--ink-soft);}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem 2rem;}
+footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.hr{transition:none;}}
+</style>
+</head>
+<body data-first-name="{{first_name}}" data-company="{{company}}">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://boundlessstride.com/">Boundless Stride Labs</a>
+    <a class="btn btn-amber" href="#book">Book the free review</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="greet">{{first_name}}, hope the {{gift_name}} made it to your desk.</p>
+      <h1>Let’s find where {{company}}’s numbers stop adding up.</h1>
+      <p class="lede">I’m Vik Doddi. I run Boundless Stride Labs in Austin. Send me the spreadsheets your team reconciles by hand, and in 20 minutes I’ll show you where the hours and margin are leaking. The review is free.</p>
+      <p class="aside">{{personal_line}}</p>
+      <div class="ctas">
+        <a class="btn btn-amber" href="#book">Book the free review</a>
+        <a class="btn btn-line" href="#how">How the review works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="video">
+    <div class="wrap">
+      <h2>A short note from Vik</h2>
+      <p class="sub">What the review covers and what you’ll walk away with.</p>
+      <div class="video" role="img" aria-label="Video placeholder">[VSL video goes here]</div>
+    </div>
+  </section>
+
+  <section class="sec" id="signs">
+    <div class="wrap">
+      <h2>Does any of this sound like {{company}}?</h2>
+      <ul class="symptoms">
+        <li>Month-end means days of pulling spreadsheets together by hand.</li>
+        <li>Each site or channel reports a different number for the same thing.</li>
+        <li>Shipping and 3PL costs keep creeping up, and nobody can say where.</li>
+        <li>The forecast lives in one person’s spreadsheet.</li>
+        <li>You’re about to hire a demand planner or an FP&amp;A person to sort it out.</li>
+      </ul>
+      <p>If you’re about to make that hire, fix the process first so they inherit something that works.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="proof">
+    <div class="wrap">
+      <h2>What finding the leak looks like</h2>
+      <div class="proof">
+        <figure>
+          <div class="week" id="week" role="img" aria-label="75 squares, one per hour of weekly reconciliation; after the fix, 2 remain"><span class="hr keep"></span><span class="hr keep"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span><span class="hr"></span></div>
+          <figcaption class="week-legend">
+            <span class="key"><i style="background:var(--amber)"></i>Hours a week spent reconciling, before</span>
+            <span class="key"><i style="background:var(--teal-2)"></i>Hours it takes now</span>
+          </figcaption>
+        </figure>
+        <div class="proof-copy">
+          <div class="numbers"><b>75</b><span class="to">to</span><b class="after">2</b></div>
+          <p class="unit">hours a week of spreadsheet reconciliation</p>
+          <p>A food manufacturer was rebuilding its demand plan by hand every week. Vik traced where the work was going, redesigned the process and the system behind it, and the same job now takes two hours.</p>
+        </div>
+      </div>
+      <div class="others">
+        <div>
+          <h3>A DTC brand losing margin it couldn’t see</h3>
+          <p>Shipping and 3PL costs were eating into every order. Tracing them by channel showed where the margin was going.</p>
+        </div>
+        <div>
+          <h3>A multi-site operator with no single number</h3>
+          <p>Every location reported differently. Now they all report the same number, the same way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="wrap">
+      <h2>How the free review works</h2>
+      <ol class="steps">
+        <li>
+          <h3>Send the spreadsheets</h3>
+          <p>Whatever your team reconciles by hand today, as it is. No cleanup needed.</p>
+          <p class="note">[NDA available on request]</p>
+        </li>
+        <li>
+          <h3>Get a 20-minute walkthrough</h3>
+          <p>Vik shows you where the hours and margin are leaking, using your own data.</p>
+        </li>
+        <li>
+          <h3>Decide what to do</h3>
+          <p>If it’s worth fixing, he’ll scope a project with you. If it isn’t, you keep what he found.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="fit">
+    <div class="wrap split">
+      <div>
+        <h2>Built for companies like {{company}}</h2>
+        <p class="sub">Big enough to have real operational mess, and not yet big enough to have a data or BizOps team for it.</p>
+        <ul class="fit">
+          <li>Privately held, $20M to $100M in revenue</li>
+          <li>25 to 200 employees</li>
+          <li>You make or sell a physical product through more than one channel or site</li>
+          <li>Food and beverage, consumer brands, or multi-yard industrial and oilfield services</li>
+        </ul>
+      </div>
+      <div class="about">
+        <div class="about-head">
+          <div class="photo">[Photo of Vik]</div>
+          <div>
+            <h3>Vik Doddi</h3>
+            <p class="role">Founder, Boundless Stride Labs, Austin</p>
+          </div>
+        </div>
+        <p>Vik is who founders call when the numbers don’t add up and nobody can say why. He goes into the business, traces where hours and margin leak between how it actually runs and what the P&amp;L shows, then redesigns the process so it stops.</p>
+        <p>His background is in applied statistics and operations research.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book">
+    <div class="wrap book-grid">
+      <div>
+        <h2>Book the free review, {{first_name}}</h2>
+        <p>Twenty minutes with your own data and a clear answer on where the leak is.</p>
+        <p class="alt">Prefer email? [Vik’s email address]</p>
+      </div>
+      <div class="cal" role="img" aria-label="Calendar placeholder">[Calendar embed goes here]</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Boundless Stride Labs, Austin, Texas</span>
+    <a href="https://boundlessstride.com/">boundlessstride.com</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // The one moment of motion: 73 of the 75 weekly hours clear once the chart scrolls into view.
+  var week = document.getElementById('week');
+  if(!week) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cells = week.querySelectorAll('.hr:not(.keep)');
+  function clear(){
+    if(reduce){ week.classList.add('done'); return; }
+    cells.forEach(function(c, i){ c.style.transitionDelay = (i * 14) + 'ms'; });
+    week.classList.add('done');
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ setTimeout(clear, 350); io.disconnect(); } });
+    }, { threshold: 0.5 });
+    io.observe(week);
+  } else { clear(); }
+})();
+</script>
+</body>
+</html>
