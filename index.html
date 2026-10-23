@@ -75,6 +75,16 @@ img{max-width:100%;}
 
 /* video placeholder */
 .video{margin-top:2rem;aspect-ratio:16/9;max-width:56rem;display:grid;place-items:center;background:var(--surface);border:1.5px dashed var(--rule);border-radius:6px;color:var(--ink-soft);font-weight:500;text-align:center;padding:1rem;}
+/* hero with video: text left, video right on desktop; headline, video, then text on mobile */
+.hero-grid{display:grid;grid-template-columns:1fr;grid-template-areas:"head" "video" "body";row-gap:1.5rem;}
+.hero-head{grid-area:head;}
+.hero-video{grid-area:video;}
+.hero-body{grid-area:body;}
+.hero-body .lede:first-child{margin-top:0;}
+.hero-video .video{margin-top:0;max-width:none;width:100%;}
+.hero-video video,.hero-video iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:6px;background:#000;}
+.hero-video .vid-note{margin-top:0.6rem;font-size:0.92rem;color:var(--ink-soft);}
+@media (min-width:900px){.hero-grid{grid-template-columns:1.1fr 0.9fr;grid-template-areas:"head video" "body video";column-gap:3.5rem;row-gap:1.5rem;align-items:start;}.hero-video{position:sticky;top:96px;}}
 
 /* symptoms */
 .symptoms{margin-top:2rem;max-width:44rem;list-style:none;padding:0;border-top:1px solid var(--rule);}
@@ -167,9 +177,18 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
 
 <main>
   <section class="hero">
-    <div class="wrap">
-      <p class="greet">{{first_name}}, hope the {{gift_name}} made it to your desk.</p>
-      <h1>A free review of {{company}}’s spreadsheets.</h1>
+    <div class="wrap hero-grid">
+      <div class="hero-head">
+        <p class="greet">{{first_name}}, hope the {{gift_name}} made it to your desk.</p>
+        <h1>A free review of {{company}}’s spreadsheets.</h1>
+      </div>
+      <div class="hero-video">
+        <!-- VIDEO: replace the placeholder div with Vik's video. Use a poster frame of Vik mid-sentence, captions on by default, no autoplay with sound. e.g.
+        <video controls playsinline preload="metadata" poster="[poster.jpg]"><source src="[vik-review.mp4]" type="video/mp4"><track kind="captions" src="[captions.vtt]" srclang="en" label="English" default></video> -->
+        <div class="video" role="img" aria-label="Video placeholder">[Vik’s video goes here]</div>
+        <p class="vid-note">About 60 seconds, from Vik.</p>
+      </div>
+      <div class="hero-body">
       <p class="lede">I’m Vik Doddi. I run Boundless Stride Labs in Austin. I help companies maximize EBITDA.</p>
       <p class="lede">Let’s talk about your team’s dependency on spreadsheets. This is where we often see complex formulas, human errors, cumbersome error detection, workaround business logic, exception management, and their precious time disappearing into the “spreadsheet black hole.” I’ll show you where there may be opportunities for automation, a better, cleaner way of running your business. The review is free.</p>
       <p class="aside">{{personal_line}}</p>
@@ -178,6 +197,7 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
         <a class="btn btn-line" href="#how">How it works</a>
       </div>
       <p class="reassure">20 minutes. Your own data. No cost, no deck, and you keep what I find either way.</p>
+      </div>
     </div>
   </section>
 
@@ -219,7 +239,7 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
         <li>
           <h3>Send the spreadsheets</h3>
           <p>Whatever your team reconciles by hand today, as it is. No cleanup needed.</p>
-          <p class="note">[NDA available on request]</p>
+          <p class="note">Happy to sign an NDA before you send anything.</p>
         </li>
         <li>
           <h3>Get your free review</h3>
@@ -239,7 +259,7 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
       <div>
         <h2>Book the free review, {{first_name}}</h2>
         <p>Pick a 20-minute slot. Bring nothing; I’ll ask for the spreadsheets after we talk.</p>
-        <p class="alt">Prefer email? [Vik’s email address]<br>Prefer to call? [Vik’s phone]</p>
+        <p class="alt">Prefer email? <a href="mailto:vik@boundlessstride.com">vik@boundlessstride.com</a><br>Prefer to call? <a href="tel:+15128278453">(512) 827-8453</a></p>
       </div>
       <div>
         <iframe class="cal" src="https://cal.com/vdoddi" title="Book the free review with Vik Doddi" loading="lazy"></iframe>
@@ -262,14 +282,6 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
     </div>
   </section>
 
-  <section class="sec" id="video">
-    <div class="wrap">
-      <h2>A short note from Vik</h2>
-      <p class="sub">What the review covers and what you’ll walk away with. Under two minutes.</p>
-      <div class="video" role="img" aria-label="Video placeholder">[VSL video goes here]</div>
-    </div>
-  </section>
-
   <section class="sec" id="about">
     <div class="wrap">
       <div class="about">
@@ -281,7 +293,7 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
           </div>
         </div>
         <p>I’m who founders call when the numbers don’t add up and nobody can say why. I go into the business, trace where hours and margin leak between how it actually runs and what the P&amp;L shows, then redesign the process so it stops.</p>
-        <p>[One line on background, in Vik’s words]</p>
+        <p>My background is in applied statistics and operations research. I’ve done this work across food manufacturing, consumer and subscription brands, and oilfield services, from demand planning and forecasting to the reporting leadership actually runs the business on.</p>
       </div>
     </div>
   </section>
@@ -296,7 +308,7 @@ footer a{text-decoration-color:var(--rule);text-underline-offset:3px;}
 
 <footer>
   <div class="wrap">
-    <div class="sig"><b>Vik Doddi</b><br>Boundless Stride Labs, Austin, Texas<br>[Vik’s email address] · [Vik’s phone]</div>
+    <div class="sig"><b>Vik Doddi</b><br>Boundless Stride Labs, Austin, Texas<br><a href="mailto:vik@boundlessstride.com">vik@boundlessstride.com</a> · <a href="tel:+15128278453">(512) 827-8453</a></div>
     <a href="https://boundlessstride.com/">boundlessstride.com</a>
   </div>
 </footer>
